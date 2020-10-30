@@ -3,7 +3,8 @@ import os
 import datetime
 from utils import augment_triplet, evaluate
 
-dataset = 'data/1'
+# argv[1] is fold number 0, 1, .., 4
+dataset = 'data/' + sys.argv[1]
 path = './record'
 
 iterations = 2
@@ -37,7 +38,7 @@ if kge_model == 'TransE':
         kge_batch, kge_neg, kge_dim, kge_gamma, kge_alpha, kge_lr, kge_iters, kge_tbatch = 1024, 256, 1000, 9.0, 1.0, 0.00005, 100000, 16
     if dataset.split('/')[-1] == 'wn18':
         kge_batch, kge_neg, kge_dim, kge_gamma, kge_alpha, kge_lr, kge_iters, kge_tbatch = 512, 1024, 500, 12.0, 0.5, 0.0001, 80000, 8
-    if True: #dataset.split('/')[-1] == 'wn18rr':
+    if dataset.split('/')[-1] == 'wn18rr' or dataset.split('/')[-1] in ('0', '1', '2', '3', '4'):
         kge_batch, kge_neg, kge_dim, kge_gamma, kge_alpha, kge_lr, kge_iters, kge_tbatch = 512, 1024, 500, 6.0, 0.5, 0.00005, 80000, 8
 
 if kge_model == 'DistMult':
@@ -47,7 +48,7 @@ if kge_model == 'DistMult':
         kge_batch, kge_neg, kge_dim, kge_gamma, kge_alpha, kge_lr, kge_iters, kge_tbatch, kge_reg = 1024, 256, 2000, 200.0, 1.0, 0.001, 100000, 16, 0.00001
     if dataset.split('/')[-1] == 'wn18':
         kge_batch, kge_neg, kge_dim, kge_gamma, kge_alpha, kge_lr, kge_iters, kge_tbatch, kge_reg = 512, 1024, 1000, 200.0, 1.0, 0.001, 80000, 8, 0.00001
-    if dataset.split('/')[-1] == 'wn18rr':
+    if dataset.split('/')[-1] == 'wn18rr' or dataset.split('/')[-1] in ('0', '1', '2', '3', '4'):
         kge_batch, kge_neg, kge_dim, kge_gamma, kge_alpha, kge_lr, kge_iters, kge_tbatch, kge_reg = 512, 1024, 1000, 200.0, 1.0, 0.002, 80000, 8, 0.000005
 
 if kge_model == 'ComplEx':
@@ -57,7 +58,7 @@ if kge_model == 'ComplEx':
         kge_batch, kge_neg, kge_dim, kge_gamma, kge_alpha, kge_lr, kge_iters, kge_tbatch, kge_reg = 1024, 256, 1000, 200.0, 1.0, 0.001, 100000, 16, 0.00001
     if dataset.split('/')[-1] == 'wn18':
         kge_batch, kge_neg, kge_dim, kge_gamma, kge_alpha, kge_lr, kge_iters, kge_tbatch, kge_reg = 512, 1024, 500, 200.0, 1.0, 0.001, 80000, 8, 0.00001
-    if dataset.split('/')[-1] == 'wn18rr':
+    if dataset.split('/')[-1] == 'wn18rr' or dataset.split('/')[-1] in ('0', '1', '2', '3', '4'):
         kge_batch, kge_neg, kge_dim, kge_gamma, kge_alpha, kge_lr, kge_iters, kge_tbatch, kge_reg = 512, 1024, 500, 200.0, 1.0, 0.002, 80000, 8, 0.000005
 
 if dataset.split('/')[-1] == 'FB15k':
@@ -72,7 +73,7 @@ if dataset.split('/')[-1] == 'wn18':
     mln_threshold_of_rule = 0.1
     mln_threshold_of_triplet = 0.5
     weight = 100
-if True :#dataset.split('/')[-1] == 'wn18rr' :
+if dataset.split('/')[-1] == 'wn18rr' or dataset.split('/')[-1] in ('0', '1', '2', '3', '4'):
     mln_threshold_of_rule = 0.1
     mln_threshold_of_triplet = 0.5
     weight = 100
