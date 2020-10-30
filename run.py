@@ -3,7 +3,7 @@ import os
 import datetime
 from utils import augment_triplet, evaluate
 
-dataset = 'data/FB15k'
+dataset = 'data/1'
 path = './record'
 
 iterations = 2
@@ -37,7 +37,7 @@ if kge_model == 'TransE':
         kge_batch, kge_neg, kge_dim, kge_gamma, kge_alpha, kge_lr, kge_iters, kge_tbatch = 1024, 256, 1000, 9.0, 1.0, 0.00005, 100000, 16
     if dataset.split('/')[-1] == 'wn18':
         kge_batch, kge_neg, kge_dim, kge_gamma, kge_alpha, kge_lr, kge_iters, kge_tbatch = 512, 1024, 500, 12.0, 0.5, 0.0001, 80000, 8
-    if dataset.split('/')[-1] == 'wn18rr':
+    if True: #dataset.split('/')[-1] == 'wn18rr':
         kge_batch, kge_neg, kge_dim, kge_gamma, kge_alpha, kge_lr, kge_iters, kge_tbatch = 512, 1024, 500, 6.0, 0.5, 0.00005, 80000, 8
 
 if kge_model == 'DistMult':
@@ -72,7 +72,7 @@ if dataset.split('/')[-1] == 'wn18':
     mln_threshold_of_rule = 0.1
     mln_threshold_of_triplet = 0.5
     weight = 100
-if dataset.split('/')[-1] == 'wn18rr':
+if True :#dataset.split('/')[-1] == 'wn18rr' :
     mln_threshold_of_rule = 0.1
     mln_threshold_of_triplet = 0.5
     weight = 100
@@ -133,6 +133,7 @@ save_cmd('{}/cmd.txt'.format(path))
 
 os.system('cp {}/train.txt {}/train.txt'.format(dataset, path))
 os.system('cp {}/train.txt {}/train_augmented.txt'.format(dataset, path))
+print (cmd_mln(path, preprocessing=True))
 os.system(cmd_mln(path, preprocessing=True))
 
 for k in range(iterations):
@@ -142,8 +143,10 @@ for k in range(iterations):
 
     os.system('cp {}/train_augmented.txt {}/train_kge.txt'.format(path, workspace_path))
     os.system('cp {}/hidden.txt {}/hidden.txt'.format(path, workspace_path))
+    print (cmd_kge(workspace_path, kge_model))
     os.system(cmd_kge(workspace_path, kge_model))
-
+    
+    
     os.system(cmd_mln(path, workspace_path, preprocessing=False))
     augment_triplet('{}/pred_mln.txt'.format(workspace_path), '{}/train.txt'.format(path), '{}/train_augmented.txt'.format(workspace_path), mln_threshold_of_triplet)
     os.system('cp {}/train_augmented.txt {}/train_augmented.txt'.format(workspace_path, path))
