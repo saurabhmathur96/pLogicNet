@@ -238,7 +238,7 @@ def main(args):
     logging.info('#hidden: %d' % len(hidden_triples))
     
     #All true triples
-    all_true_triples = train_original_triples + valid_triples + test_triples
+    all_true_triples = train_original_triples + test_triples
     
     kge_model = KGEModel(
         model_name=args.model,
