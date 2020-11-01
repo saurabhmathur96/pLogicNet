@@ -61,7 +61,7 @@ if kge_model == 'ComplEx':
     if dataset.split('/')[-1] == 'wn18rr' or dataset.split('/')[-1] in ('0', '1', '2', '3', '4'):
         kge_batch, kge_neg, kge_dim, kge_gamma, kge_alpha, kge_lr, kge_iters, kge_tbatch, kge_reg = 512, 1024, 500, 200.0, 1.0, 0.002, 80000, 8, 0.000005
 
-kge_iters = 10000
+kge_iters = 3000
 
 if dataset.split('/')[-1] == 'FB15k':
     mln_threshold_of_rule = 0.1
